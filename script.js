@@ -5,22 +5,37 @@ async function fetchApi() {
       return response.json()
     })
     .then(data => {
-      displayData(data)
+      displayData(data);
+      deleteRow();
     });
 }
 
 function createTable() {
+  const wrapper = document.querySelector(".wrapper");
+  const searchInput = document.createElement("input");
+  searchInput.className = "searchBar";
+  const button = document.createElement("button");
+  const buttonText = document.createElement("span");
+  buttonText.innerText = "search";
+  wrapper.appendChild(searchInput);
+  wrapper.appendChild(button);
+  button.appendChild(buttonText);
+
+  button.addEventListener("click", searchForUnpropriateWords());
+
   let headers = ["Name", "Email", "Body", "Action"];
 
-  const wrapper = document.querySelector(".wrapper");
   const table = document.createElement("table");
   table.className = "table";
+  wrapper.appendChild(table);
 
   const tHead = document.createElement("thead");
   tHead.className = "topHead";
+  table.appendChild(tHead);
 
   const tr = document.createElement("tr");
   tr.className = "tr";
+  tHead.appendChild(tr);
 
   headers.forEach(header => {
     const mainTh = document.createElement('th');
@@ -28,10 +43,6 @@ function createTable() {
     mainTh.innerText = header;
     tr.appendChild(mainTh);
   })
-
-  wrapper.appendChild(table);
-  table.appendChild(tHead);
-  tHead.appendChild(tr);
 }
 
 function displayData(data) {
@@ -44,6 +55,19 @@ function displayData(data) {
     const nextLine = document.createElement("tr");
     nextLine.className = "trBody";
     wrapperForData.appendChild(nextLine);
+
+    var checkbox = document.createElement('input');
+    checkbox.name = "check";
+    checkbox.type = "checkbox";
+    checkbox.value = "value";
+    checkbox.className = "checkbox";
+
+    var label = document.createElement('label');
+    label.htmlFor = "id";
+    label.appendChild(document.createTextNode(''));
+
+    nextLine.appendChild(checkbox);
+    checkbox.appendChild(label);
 
     const name = document.createElement("td");
     name.innerText = user.name;
@@ -66,69 +90,90 @@ function displayData(data) {
     removeButton.innerText = "usuń";
     removeButton.className = "button1";
     action.appendChild(removeButton);
-   
 
     const logInButton = document.createElement("button");
     logInButton.innerText = "zaloguj się";
     logInButton.className = "button2";
     action.appendChild(logInButton);
-
-    var checkbox = document.createElement('input');
-    checkbox.type = "checkbox";
-    checkbox.name = "name";
-    checkbox.value = "value";
-    checkbox.id = "id";
-    checkbox.className = "checkbox";
-
-    var label = document.createElement('label');
-    label.htmlFor = "id";
-    label.appendChild(document.createTextNode(''));
-
-    name.appendChild(checkbox);
-    name.appendChild(label);
-
-    var checkbox = document.createElement('input');
-    checkbox.type = "checkbox";
-    checkbox.name = "name";
-    checkbox.value = "value";
-    checkbox.id = "id";
-    checkbox.className = "checkbox";
-
-    var label = document.createElement('label');
-    label.htmlFor = "id";
-    label.appendChild(document.createTextNode(''));
-
-    email.appendChild(checkbox);
-
-    var checkbox = document.createElement('input');
-    checkbox.type = "checkbox";
-    checkbox.name = "name";
-    checkbox.value = "value";
-    checkbox.id = "id";
-    checkbox.className = "checkbox";
-
-    var label = document.createElement('label');
-    label.htmlFor = "id";
-    label.appendChild(document.createTextNode(''));
-    body.appendChild(checkbox);
-  });
-
-  
- //const button = document.querySelector(".button1");
-  //button.addEventListener("click", removeField);
-
-  //function removeField(id) {
-   // const selectedfield = document.querySelector(id);
-    //const selectBodyField = document.querySelector(".tBody")
-    //   selectedfield.remove(selectBodyField);
-    
-  //}
-  
-
-
-
-
+  })
 }
+
+function searchForUnpropriateWords(data) {
+  let input = document.querySelector(".searchBar");
+  input.addEventListener('change', updateValue = (e) => {
+    input = e.target.value;
+    const tr = document.getElementsByClassName("trBody");
+
+    for (let i = 0; i < tr.length; i++) {
+      const td1 = tr[i].getElementsByClassName("tdBody")[0].textContent;
+      const td2 = tr[i].getElementsByClassName("tdBody")[1].textContent;
+      const td3 = tr[i].getElementsByClassName("tdBody")[2].textContent;
+
+      if (td1.includes(input)) {
+        tr[i].style.display = "";
+        tr[i].style.backgroundColor = "rgb(247, 247, 247)";
+      } else {
+        tr[i].style.display = "none";
+      }
+
+      if (td2.includes(input)) {
+        tr[i].style.display = "";
+        tr[i].style.backgroundColor = "rgb(247, 247, 247)";
+      } else {
+        tr[i].style.display = "none";
+      }
+
+      if (td3.includes(input)) {
+        tr[i].style.display = "";
+        tr[i].style.backgroundColor = "rgb(247, 247, 247)";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  })
+}
+
+function deleteRow() {
+  const catchInput = document.getElementsByClassName("checkbox");
+  const button = document.getElementsByClassName("button1");
+  for (let i = 0; i < catchInput.length; i++) {
+    const checkbox = catchInput[i];
+
+    checkbox.addEventListener("change", function () {
+      checkbox.parentElement.style.backgroundColor = "rgb(247, 247, 247)";
+      for (let i = 0; i < button.length; i++) {
+          const btn = button[i];
+          btn.addEventListener("click", function () {
+            btn.parentElement.parentElement.remove();
+          })
+        }
+      }
+    )}
+}
+
+
+
+
+
+
+/*
+ 
+  function deleteAllRows() {
+    const rows = document.getElementsByClassName("trBody");
+ 
+  }
+ 
+  function deleteMultipleRows() {
+    const selectedCheckboxes = document.querySelectorAll('input[type=checkbox][name=check]:checked');
+    console.log(selectedCheckboxes);
+    for (let i = 0; i < selectedCheckboxes.length; i++) {
+      const check = selectedCheckboxes[i];
+      check.addEventListener("click", function () {
+        check.parentElement.parentElement.remove();
+      })
+    }
+  }
+*/
 
 fetchApi();
 createTable();
