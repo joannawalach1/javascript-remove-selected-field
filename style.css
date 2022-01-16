@@ -44,7 +44,7 @@ html {
     width: 25%;
     height: auto;
     display: flex;
-    border-bottom: rgb(235, 235, 235) 1px solid;
+    border-bottom: #969595 1px solid;
     justify-content: space-around;
     padding: 20px;
 }
@@ -80,7 +80,24 @@ html {
     border: 0px;
 }
 
-.newBackground {
-    background-color: rgb(247, 247, 247);
+.searchBar {
+    width: 300px;
+    min-height: 40px;
+    outline: 0;
+    border: 0;
+    border-bottom: 1px rgb(155, 152, 152) solid;
+    padding: 10px;
+    margin: 20px 20px;
 }
-       
+
+.searchButton {
+    width: 100px;
+    height: 40px;
+    background-color: rgb(209, 212, 209);
+    color: white;
+    border: 0px;
+}
+
+.searchButton:hover {
+    background-color: rgb(3, 42, 94);
+}

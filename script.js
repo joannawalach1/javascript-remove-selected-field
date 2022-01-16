@@ -15,6 +15,7 @@ function createTable() {
   const searchInput = document.createElement("input");
   searchInput.className = "searchBar";
   const button = document.createElement("button");
+  button.className = "searchButton";
   const buttonText = document.createElement("span");
   buttonText.innerText = "search";
   wrapper.appendChild(searchInput);
@@ -111,21 +112,21 @@ function searchForUnpropriateWords(data) {
 
       if (td1.includes(input)) {
         tr[i].style.display = "";
-        tr[i].style.backgroundColor = "rgb(247, 247, 247)";
+        tr[i].style.backgroundColor = "rgb(245,245,245)";
       } else {
         tr[i].style.display = "none";
       }
 
       if (td2.includes(input)) {
         tr[i].style.display = "";
-        tr[i].style.backgroundColor = "rgb(247, 247, 247)";
+        tr[i].style.backgroundColor = "rgb(245,245,245)";
       } else {
         tr[i].style.display = "none";
       }
 
       if (td3.includes(input)) {
         tr[i].style.display = "";
-        tr[i].style.backgroundColor = "rgb(247, 247, 247)";
+        tr[i].style.backgroundColor = "rgb(245,245,245)";
       } else {
         tr[i].style.display = "none";
       }
@@ -140,7 +141,7 @@ function deleteRow() {
     const checkbox = catchInput[i];
 
     checkbox.addEventListener("change", function () {
-      checkbox.parentElement.style.backgroundColor = "rgb(247, 247, 247)";
+      checkbox.parentElement.style.backgroundColor = "rgb(196,196,196)";
       for (let i = 0; i < button.length; i++) {
           const btn = button[i];
           btn.addEventListener("click", function () {
