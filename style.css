@@ -96,8 +96,22 @@ html {
     background-color: rgb(209, 212, 209);
     color: white;
     border: 0px;
+    margin-left: 20px;
+}
+
+.removeAllButton {
+    width: 200px;
+    height: 40px;
+    background-color: rgb(209, 212, 209);
+    color: white;
+    border: 0px;
+    margin-left: 20px;
 }
 
 .searchButton:hover {
     background-color: rgb(3, 42, 94);
+}
+
+.removeButton:hover {
+      background-color: rgb(3, 42, 94);
 }
